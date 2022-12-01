@@ -1,8 +1,8 @@
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
-// 2nd DEMO SHARED PREFERENCE - PERSONAL 
+// 2nd DEMO SHARED PREFERENCE - PERSONAL
 void main() {
   runApp(const MyApp());
 }
@@ -75,6 +75,19 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //Remove counter and save value to shared preference
+  void _removeCounter() async {
+    final preference = await SharedPreferences
+        .getInstance(); //Create Shared Preference Instance
+
+    setState(() {
+      preference.remove("counterKey");
+      preference.clear();
+    });
+
+    readCounter(); //Read value to update since the value has been cleared
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,26 +126,35 @@ class _MyHomePageState extends State<MyHomePage> {
             tooltip: 'decrement',
             child: const Icon(Icons.remove),
           ),
+          FloatingActionButton(
+            onPressed: _removeCounter,
+            tooltip: 'delete',
+            child: const Icon(Icons.delete),
+          ),
         ],
       ),
     );
   }
 }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-
-
-
-
-
-
-
-
-
-
-
-
-//Destiny  Ed Tutorial Saving and Reading Counter value from shared preference
+// //Destiny  Ed Tutorial Saving and Reading Counter value from shared preference
 
 // import 'package:flutter/material.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
@@ -174,6 +196,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //   }
 
 //   int _counter = 0;
+//   String? name;
 
 //   //Read Saved counter Value from shared preference
 //   void readCounter() async {
@@ -181,6 +204,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 //     setState(() {
 //       _counter = preference.getInt("counterKey")!;
+//       name = preference.getString("myName");
 //     });
 //   }
 
@@ -192,6 +216,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //     setState(() {
 //       _counter++;
 //       preference.setInt("counterKey", _counter);
+//       preference.setString("myName", "Peter is my name");
 //       readCounter();
 //     });
 //   }
@@ -218,12 +243,17 @@ class _MyHomePageState extends State<MyHomePage> {
 //         child: Column(
 //           mainAxisAlignment: MainAxisAlignment.center,
 //           children: <Widget>[
-//             const Text(
+//             Text(
+//               'The name assigned is : $name',
+//               style: Theme.of(context).textTheme.headline4,
+//             ),
+//             Text(
 //               'You have pushed the button this many times:',
+//               style: Theme.of(context).textTheme.headline6,
 //             ),
 //             const SizedBox(height: 20),
 //             Text(
-//               'Current counter value : $_counter',
+//               'counter value : $_counter',
 //               style: Theme.of(context).textTheme.headline4,
 //             ),
 //           ],
@@ -239,7 +269,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //           ),
 //           FloatingActionButton(
 //             onPressed: _decrementCounter,
-//             tooltip: 'Increment',
+//             tooltip: 'decrement',
 //             child: const Icon(Icons.remove),
 //           ),
 //         ],
